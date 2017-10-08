@@ -6,15 +6,14 @@ import Form from "react-jsonschema-form";
 
 
 const schema = {
-  title: "Properties",
+  title: "Properties — there is no validation, please be careful",
   type: "object",
-  required: ["street_name", "street_suffix", "streets_between",
-            "sign_text", "permit_zone", "signs"],
+  required: ["street_name", "street_suffix", "streets_between", "permit_zone", "signs"],
   properties: {
-    "street_name": {type: "string", title: "Street Name", default: "Mercer"},
-    "street_suffix": {type: "string", title: "Street Suffix", default: "Street"},
-    "sign_summary_text": {type: "string", title: "Sign Summary Text", default: ""},
-    "permit_zone": {type: "number", title: "Permit Zone", default: 0},
+    "street_name": {type: "string", title: "Street Name"},
+    "street_suffix": {type: "string", title: "Street Suffix"},
+    "sign_summary_text": {type: "string", title: "Sign Summary Text"},
+    "permit_zone": {type: "number", title: "Permit Zone"},
     "streets_between": {
       type: "array",
       title: "Streets Between",
@@ -22,8 +21,8 @@ const schema = {
         type: "object",
         required: ["street_name", "street_suffix"],
         properties: {
-          "street_name": {type: "string", title: "Street Name", default: "Mercer"},
-          "street_suffix": {type: "string", title: "Street Suffix", default: "Street"},
+          "street_name": {type: "string", title: "Street Name"},
+          "street_suffix": {type: "string", title: "Street Suffix"},
         }
       }
     },
@@ -32,22 +31,22 @@ const schema = {
       title: "Signs",
       items: {
         type: "object",
-        required: ["sign_title", "sign_color",
+        required: ["sign_title",
                   "sign_applies_to_permit_holder", "sign_days"],
         properties: {
-          "sign_title": {type: "string", title: "Sign Title", default: ""},
-          "sign_text": {type: "string", title: "Sign Text", default: ""},
-          "sign_color": {type: "string", title: "Sign Color", default: ""},
+          "sign_title": {type: "string", title: "Sign Title"},
+          "sign_text": {type: "string", title: "Sign Text"},
+          "sign_color": {type: "string", title: "Sign Color"},
           "sign_applies_to_permit_holder": {type: "boolean", title: "Sign Applies to Permit Holder", default: false},
           "sign_time_range": {
             type: "array",
-            title: "Sign Time Range",
+            title: "Sign Time Range [OPTIONAL]",
             items: {
               type: "object",
               required: ["start_time", "end_time"],
               properties: {
-                start_time: {type: "string", format: "date-time", title: "start time"},
-                end_time: {type: "string", format: "date-time", title: "end time"}
+                start_time: {type: "string", title: "start time (ex: \"1300\" for 1pm, assuming EDT)"},
+                end_time: {type: "string", title: "end time"}
               }
             }
           },
@@ -60,7 +59,7 @@ const schema = {
             },
             default: ["M", "Tu", "W", "Th", "F", "Sa", "Su"]
           },
-          "sign_duration": {type: "number", title: "Sign Duration (in number of hours)", default: 2},
+          "sign_duration": {type: "number", title: "Sign Duration [OPTIONAL] (in number of hours)"},
         }
       }
     },
@@ -100,6 +99,7 @@ class App extends Component {
         onChange={this.handleChange}
         onSubmit={log("submitted")}
         onError={log("errors")} />
+        <p>replace the "properties" section in geojson editor w/ the one below (exclude the outer curly braces)</p>
         <textarea cols={50} rows={50} value={formDataAsText}></textarea>
       </div>
     );
