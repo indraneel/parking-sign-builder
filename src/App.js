@@ -32,7 +32,7 @@ const schema = {
       title: "Signs",
       items: {
         type: "object",
-        required: ["sign_title", "sign_text", "sign_color",
+        required: ["sign_title", "sign_color",
                   "sign_applies_to_permit_holder", "sign_days"],
         properties: {
           "sign_title": {type: "string", title: "Sign Title", default: ""},
