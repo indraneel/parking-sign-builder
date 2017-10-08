@@ -8,7 +8,7 @@ import Form from "react-jsonschema-form";
 const schema = {
   title: "Properties — there is no validation, please be careful",
   type: "object",
-  required: ["street_name", "street_suffix", "streets_between", "permit_zone", "signs"],
+  required: ["street_name", "street_suffix", "permit_zone", "signs"],
   properties: {
     "street_name": {type: "string", title: "Street Name"},
     "street_suffix": {type: "string", title: "Street Suffix"},
